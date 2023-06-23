@@ -31,7 +31,8 @@ void print_payload(uint8_t *msg, uint8_t size)
     }
 
 }
-
+// allowableSpeed = Maximum Allowable Speed in different Speed Modes
+// IQValue = The desired IQValue drawn by the motor controller
 void STM32MCP_TorqueConfiguration(uint16_t allowableSpeed, uint16_t IQValue)
 {
    //Make a payload and insert into the packet
@@ -62,6 +63,9 @@ void STM32MCP_TorqueConfiguration(uint16_t allowableSpeed, uint16_t IQValue)
    printf("Current (s16) is : %d\n", IQ_Current);
 }
 
+// allowableSpeed = Maximum Allowable Speed in different Speed Modes
+// torqueIQ = Maximum Allowable Iq in different speed modes
+// rampRate = Time durations to reach at the target Iq/Current/Torque in different Speed Modes
 void STM32MCP_TorqueRampConfiguration(int16_t torqueIQ, uint16_t allowableSpeed, uint16_t rampRate)
 {
    //Make a payload and insert into the packet

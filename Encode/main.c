@@ -8,8 +8,8 @@
 #define STM32_MOTOR_LAST_ID                          0x00
 #define STM32_MOTOR_1_ID                             0x20
 #define STM32_MOTOR_2_ID                             0x40
-#define STM32MCP_TORQUE_CONFIG_ID                    0x1E
-#define STM32MCP_TORQUE_RAMP_CONFIG_ID               0x1D
+#define STM32MCP_TORQUE_CONFIG_ID                    0x0C   //FRAME ID
+#define STM32MCP_TORQUE_RAMP_CONFIG_ID               0x0B   //FRAME ID
 
 uint8_t STM32MCP_calChecksum(uint8_t *msg, uint8_t size)
 {
@@ -57,7 +57,7 @@ void STM32MCP_TorqueConfiguration(uint16_t allowableSpeed, uint16_t IQValue)
    printf("%X\n", txFrame[8]);
    print_payload(txFrame, 9);
    printf("\n");
-   int16_t SPEED = txFrame[2] + (txFrame[3] << 8) + (txFrame[4] << 16) + (txFrame[5] << 24);
+   int32_t SPEED = txFrame[2] + (txFrame[3] << 8) + (txFrame[4] << 16) + (txFrame[5] << 24);
    printf("Speed is : %d\n", SPEED);
    int16_t IQ_Current = txFrame[6] + (txFrame[7] << 8);
    printf("Current (s16) is : %d\n", IQ_Current);
@@ -96,7 +96,7 @@ void STM32MCP_TorqueRampConfiguration(int16_t torqueIQ, uint16_t allowableSpeed,
    printf("\n");
    int16_t Current = txFrame[2] + (txFrame[3] << 8);
    printf("Maximum Current Allowed (s16): %d\n",Current);
-   int16_t RPM = txFrame[4] + (txFrame[5] << 8) + (txFrame[6] << 16) + (txFrame[7] << 24);
+   int32_t RPM = txFrame[4] + (txFrame[5] << 8) + (txFrame[6] << 16) + (txFrame[7] << 24);
    printf("Maximum Speed Allowed : %d\n", RPM);
    uint16_t TIME = txFrame[8] + (txFrame[9] << 8);
    printf("Torque Ramping (ms) : %u ms\n",TIME);

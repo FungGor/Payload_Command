@@ -56,13 +56,13 @@ void STM32MCP_TorqueConfiguration(uint16_t allowableSpeed, uint16_t IQValue)
    printf("%X\n", txFrame[8]);
    print_payload(txFrame, 9);
    printf("\n");
-   uint16_t SPEED = txFrame[2] + (txFrame[3] << 8) + (txFrame[4] << 16) + (txFrame[5] << 24);
-   printf("Speed is : %u\n", SPEED);
-   uint16_t IQ_Current = txFrame[6] + (txFrame[7] << 8);
-   printf("Current (s16) is : %u\n", IQ_Current);
+   int16_t SPEED = txFrame[2] + (txFrame[3] << 8) + (txFrame[4] << 16) + (txFrame[5] << 24);
+   printf("Speed is : %d\n", SPEED);
+   int16_t IQ_Current = txFrame[6] + (txFrame[7] << 8);
+   printf("Current (s16) is : %d\n", IQ_Current);
 }
 
-void STM32MCP_TorqueRampConfiguration(uint16_t torqueIQ, uint16_t allowableSpeed, uint16_t rampRate)
+void STM32MCP_TorqueRampConfiguration(int16_t torqueIQ, uint16_t allowableSpeed, uint16_t rampRate)
 {
    //Make a payload and insert into the packet
    uint8_t *txFrame = (uint8_t *) malloc(sizeof(uint8_t) * (STM32MCP_TORQUE_RAMP_CONFIG_PAYLOAD_LENGTH + 3));
@@ -90,10 +90,10 @@ void STM32MCP_TorqueRampConfiguration(uint16_t torqueIQ, uint16_t allowableSpeed
    printf("%X\n", txFrame[10]);
    print_payload(txFrame, 11);
    printf("\n");
-   uint16_t Current = txFrame[2] + (txFrame[3] << 8);
-   printf("Maximum Current Allowed (s16): %u\n",Current);
-   uint16_t RPM = txFrame[4] + (txFrame[5] << 8) + (txFrame[6] << 16) + (txFrame[7] << 24);
-   printf("Maximum Speed Allowed : %u\n", RPM);
+   int16_t Current = txFrame[2] + (txFrame[3] << 8);
+   printf("Maximum Current Allowed (s16): %d\n",Current);
+   int16_t RPM = txFrame[4] + (txFrame[5] << 8) + (txFrame[6] << 16) + (txFrame[7] << 24);
+   printf("Maximum Speed Allowed : %d\n", RPM);
    uint16_t TIME = txFrame[8] + (txFrame[9] << 8);
    printf("Torque Ramping (ms) : %u ms\n",TIME);
 }
